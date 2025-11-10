@@ -231,11 +231,11 @@ class HomePage(QWidget):
 
         layout.addSpacing(30)
 
-        # Add New Reading button
-        add_btn = QPushButton("+ Add New Reading")
-        add_btn.setFont(QFont("Segoe UI", 11, QFont.Weight.Medium))
-        add_btn.setFixedHeight(45)
-        add_btn.setStyleSheet("""
+        # Add New Reading / Go to Input button (changes based on data)
+        self.add_btn = QPushButton("+ Add New Reading")
+        self.add_btn.setFont(QFont("Segoe UI", 11, QFont.Weight.Medium))
+        self.add_btn.setFixedHeight(45)
+        self.add_btn.setStyleSheet("""
             QPushButton {
                 background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
                     stop:0 #242C30,
@@ -260,11 +260,33 @@ class HomePage(QWidget):
                 outline: none;
             }
         """)
-        add_btn.clicked.connect(lambda: self.stacked_widget.setCurrentIndex(4))
-        add_btn.setCursor(Qt.CursorShape.PointingHandCursor)
-        layout.addWidget(add_btn)
+        self.add_btn.clicked.connect(lambda: self.stacked_widget.setCurrentIndex(4))
+        self.add_btn.setCursor(Qt.CursorShape.PointingHandCursor)
+        layout.addWidget(self.add_btn)
 
         layout.addStretch()
+        
+        # Logout button
+        logout_btn = QPushButton("← Logout")
+        logout_btn.setFont(QFont("Segoe UI", 10, QFont.Weight.Normal))
+        logout_btn.setFixedHeight(40)
+        logout_btn.setStyleSheet("""
+            QPushButton {
+                background: transparent;
+                color: #EF5350;
+                border: none;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+                text-align: left;
+                padding-left: 24px;
+            }
+            QPushButton:hover {
+                background: rgba(239, 83, 80, 0.1);
+                color: #FF6B6B;
+            }
+        """)
+        logout_btn.clicked.connect(self.logout)
+        logout_btn.setCursor(Qt.CursorShape.PointingHandCursor)
+        layout.addWidget(logout_btn)
         
         # About Us button at the bottom
         about_btn = QPushButton("? About Us")
@@ -295,6 +317,29 @@ class HomePage(QWidget):
         from ui.dialogs import AboutDialog
         dialog = AboutDialog(self)
         dialog.exec()
+    
+    def logout(self):
+        """Logout and return to login page"""
+        from PyQt6.QtWidgets import QMessageBox
+        
+        reply = QMessageBox.question(
+            self,
+            'Logout',
+            'Are you sure you want to logout?',
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
+            QMessageBox.StandardButton.No
+        )
+        
+        if reply == QMessageBox.StandardButton.Yes:
+            # Clear login page fields
+            login_page = self.stacked_widget.widget(1)
+            if login_page:
+                login_page.username_input.clear()
+                login_page.password_input.clear()
+                login_page.feedback_label.clear()
+            
+            # Go back to login page
+            self.stacked_widget.setCurrentIndex(1)
 
     def create_nav_button(self, icon, text, page_idx):
         """Create a navigation button for the sidebar"""
@@ -331,7 +376,11 @@ class HomePage(QWidget):
             """)
         
         btn.clicked.connect(lambda: self.stacked_widget.setCurrentIndex(page_idx))
-        btn.setCursor(Qt.CursorShape.PointingHandCursor)
+        
+        # Only show pointer cursor if not the active page
+        if not is_active:
+            btn.setCursor(Qt.CursorShape.PointingHandCursor)
+        
         return btn
 
     def create_stat_card(self, value, label, detail, color):
@@ -438,6 +487,8 @@ class HomePage(QWidget):
             self.profiles_label.setText("0\nProfiles Tracked")
             self.last_updated_label.setText("Never\nLast Updated")
             self.subtitle_label.setText("No readings yet. Add your first reading to get started!")
+            # Change button to "Add New Reading" when no data
+            self.add_btn.setText("+ Add New Reading")
             return
 
         # Update summary stats
@@ -457,6 +508,9 @@ class HomePage(QWidget):
         time_str = last_time.strftime("%b %d, %I:%M %p")
         self.last_updated_label.setText(f"{time_str}\nLast Updated")
         self.subtitle_label.setText(f"Monitoring {unique_profiles} aquarium{'s' if unique_profiles != 1 else ''}")
+        
+        # Change button to "Go to Input" when there is data
+        self.add_btn.setText("→ Go to Input")
 
         # Update graph with latest reading only
         ph = float(latest["pH"])

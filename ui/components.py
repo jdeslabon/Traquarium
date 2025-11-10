@@ -8,10 +8,20 @@ from .styles import *
 
 
 class StrictDoubleValidator(QDoubleValidator):
-    """Strict validator that blocks invalid input"""
+    """Strict validator that blocks invalid input and limits decimal places"""
     def validate(self, input_str, pos):
         if not input_str or input_str in ['.', '-', '-.']:
             return (QDoubleValidator.State.Intermediate, input_str, pos)
+        
+        # Prevent multiple leading zeros (like 0000)
+        if len(input_str) > 1 and input_str[0] == '0' and input_str[1] != '.':
+            return (QDoubleValidator.State.Invalid, input_str, pos)
+        
+        # Check for too many decimal places
+        if '.' in input_str:
+            decimal_part = input_str.split('.')[1]
+            if len(decimal_part) > self.decimals():
+                return (QDoubleValidator.State.Invalid, input_str, pos)
         
         try:
             value = float(input_str)

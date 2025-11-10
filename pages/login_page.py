@@ -90,6 +90,11 @@ class LoginPage(QWidget):
             register_page_index = self.stacked_widget.count() - 1
             print(f"Created new RegisterPage at index {register_page_index}")
         
+        # Clear login fields before switching
+        self.username_input.clear()
+        self.password_input.clear()
+        self.feedback_label.clear()
+        
         # Navigate to register page
         self.stacked_widget.setCurrentIndex(register_page_index)
         print(f"Switched to index {register_page_index}")

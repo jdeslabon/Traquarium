@@ -6,7 +6,7 @@ from PyQt6.QtWidgets import (QVBoxLayout, QHBoxLayout, QPushButton,
                               QTableWidget, QTableWidgetItem, QHeaderView, QFrame,
                               QAbstractItemView, QMessageBox, QStyledItemDelegate, QLineEdit)
 from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QFont, QColor
+from PyQt6.QtGui import QFont, QColor, QDoubleValidator
 from ui.base_page import AquaPage
 from ui.components import ButtonFactory, InputFieldFactory, StrictDoubleValidator
 from ui.styles import TABLE_STYLE, TABLE_ALTERNATE_STYLE, DROPDOWN_FRAME_STYLE
@@ -109,27 +109,28 @@ class HistoryPage(AquaPage):
         top_layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
         
         self.search_input = InputFieldFactory.create_search_input("Search by profile name...", QFont("Segoe UI", 11))
+        self.search_input.setFixedWidth(250)
         self.search_input.textChanged.connect(self.live_search)
 
         search_button = ButtonFactory.create_nav_button("Search", QFont("Segoe UI", 10, QFont.Weight.Bold))
-        search_button.setFixedWidth(100)
+        search_button.setFixedWidth(90)
         search_button.clicked.connect(self.live_search)
         
         self.edit_button = ButtonFactory.create_edit_button("Edit", QFont("Segoe UI", 10, QFont.Weight.Bold))
-        self.edit_button.setFixedWidth(100)
+        self.edit_button.setFixedWidth(80)
         self.edit_button.clicked.connect(self.toggle_edit_mode)
         
         delete_button = ButtonFactory.create_danger_button("Delete", QFont("Segoe UI", 10, QFont.Weight.Bold))
-        delete_button.setFixedWidth(100)
+        delete_button.setFixedWidth(80)
         delete_button.clicked.connect(self.delete_button)
 
         refresh_button = ButtonFactory.create_success_button("Refresh", QFont("Segoe UI", 10, QFont.Weight.Bold))
-        refresh_button.setFixedWidth(100)
+        refresh_button.setFixedWidth(105)
         refresh_button.clicked.connect(self.refresh_table)
 
         # Save button (initially hidden)
         self.save_button = ButtonFactory.create_success_button("Save", QFont("Segoe UI", 10, QFont.Weight.Bold))
-        self.save_button.setFixedWidth(100)
+        self.save_button.setFixedWidth(80)
         self.save_button.clicked.connect(self.save_edited_row)
         self.save_button.setVisible(False)
         

@@ -48,7 +48,7 @@ class RegisterPage(QWidget):
         login_container = QHBoxLayout()
         login_text = LabelFactory.create_subtitle("Already have an account?", QFont("Segoe UI", 11))
         self.login_link = ButtonFactory.create_secondary_button("Login", QFont("Segoe UI", 11, QFont.Weight.DemiBold), (None, 30))
-        self.login_link.clicked.connect(lambda: self.stacked_widget.setCurrentIndex(1))
+        self.login_link.clicked.connect(self.go_to_login)
         
         login_container.addStretch()
         login_container.addWidget(login_text)
@@ -69,6 +69,14 @@ class RegisterPage(QWidget):
     def paintEvent(self, event):
         PaintHelper.paint_blue_gradient(self, event)
         super().paintEvent(event)
+    
+    def go_to_login(self):
+        """Clear fields and go back to login page"""
+        self.username_input.clear()
+        self.password_input.clear()
+        self.confirm_password_input.clear()
+        self.feedback_label.clear()
+        self.stacked_widget.setCurrentIndex(1)
 
     def register_user(self):
         username = self.username_input.text().strip()
