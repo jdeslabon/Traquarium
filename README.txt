@@ -4,91 +4,64 @@
 
 Version: 1.0.0
 Python: 3.8+
+Developed by: Traquarium Team
 
 ================================================================================
-PROJECT OVERVIEW
+ABOUT TRAQUARIUM
 ================================================================================
 
-Traquarium is a desktop application developed as an academic project by 2nd year 
-Computer Engineering students. The application addresses the practical challenge 
-of monitoring and tracking aquarium water quality parameters over extended periods.
-
-PROJECT RATIONALE:
-Traditional methods of recording water quality measurements rely on manual 
-record-keeping, which is prone to human error and lacks analytical capabilities. 
-Traquarium provides a comprehensive digital solution that enables aquarium 
-enthusiasts to:
-  - Systematically record water parameter measurements
-  - Visualize trends through graphical representations
-  - Receive automated warnings for unsafe parameter levels
-  - Maintain historical records for multiple aquarium profiles
-
-TECHNICAL SCOPE:
-This project represents our first major GUI application development using Python 
-and the PyQt6 framework. The implementation demonstrates our understanding of 
-object-oriented programming, data persistence, user interface design, and 
-software testing methodologies.
+Traquarium is a desktop application designed to help aquarium owners monitor 
+and track water quality parameters. The program allows users to record pH 
+levels, temperature, and ammonia concentrations over time, providing visual 
+analysis and automated warnings when parameters fall outside safe ranges.
 
 ================================================================================
-WHAT DOES IT DO?
+HOW TO USE THE PROGRAM
 ================================================================================
 
-Traquarium allows you to:
+1. HOME DASHBOARD
+-----------------
+• Displays overview of your latest water readings
+• Shows circular stat cards for pH, temperature, and ammonia
+• Includes a bar graph visualization of your most recent test
+• Quick access to add new readings
 
-  * Track Water Parameters: Monitor pH levels, temperature, and ammonia 
-    concentrations
-  * Visualize Trends: View your water quality data through interactive graphs
-  * Get Warnings: Receive automatic alerts when parameters fall outside safe 
-    ranges
-  * Manage Multiple Profiles: Track different tanks or aquariums separately
-  * Review History: Access complete historical data with search and filtering
-  * Edit Records: Modify past readings if you need to correct mistakes
+2. INPUT PAGE
+-------------
+• Enter a profile name for your aquarium (e.g., "Main Tank", "Betta Tank")
+• Input three water parameters: pH (0-14), Temperature (0-40°C), Ammonia (0-10 ppm)
+• Built-in parameter guide on the right side explains ideal ranges
+• Strict validation prevents invalid values from being saved
+• Press Enter or click "Save Reading" to store your data
+
+3. HISTORY PAGE
+---------------
+• View all saved readings in a searchable table
+• Search by profile name to filter specific aquariums
+• Click any row to see detailed warnings and suggestions
+• Edit mode allows you to correct past readings
+• Delete unwanted entries
+• Color-coded warnings: Green (safe), Yellow (caution), Red (danger)
+
+4. GRAPH PAGE
+-------------
+• Select a profile from History page first
+• Visualize all readings for that profile as bar graphs
+  - Blue bars = pH levels
+  - Orange bars = Temperature
+  - Red bars = Ammonia levels
+• Info box shows latest reading details
+• Perfect for spotting trends and tracking improvements
 
 ================================================================================
 KEY FEATURES
 ================================================================================
 
-REAL-TIME MONITORING
---------------------
-Track three critical water parameters:
-  - pH Level (0-14): Measures water acidity/alkalinity
-  - Temperature (0-40°C): Monitors water temperature
-  - Ammonia (0-10 ppm): Detects toxic ammonia levels
-
-DATA VISUALIZATION
-------------------
-  - Interactive bar graphs showing parameter trends
-  - Color-coded warnings for unsafe levels
-  - Latest reading dashboard with circular stat cards
-  - Historical data comparison
-
-MULTI-USER SUPPORT
-------------------
-  - Individual user accounts with secure login
-  - Separate data storage for each user
-  - Profile-based reading management
-
-INTELLIGENT WARNINGS
---------------------
-  - Automatic detection of unsafe water conditions
-  - Actionable suggestions for correcting problems
-  - Color-coded alerts (green = safe, yellow = caution, red = danger)
-
-DATA MANAGEMENT
----------------
-  - Persistent storage of all readings
-  - Search and filter by profile name
-  - Edit or delete historical records
-  - Export-ready JSON format
-
-MODERN USER INTERFACE
----------------------
-Traquarium features a beautiful, modern dark theme with:
-  - Smooth blue gradient backgrounds
-  - Intuitive navigation with keyboard shortcuts
-  - Responsive design that works on different screen sizes
-  - Clean, professional layout
-  - Hover animations and visual feedback
+• Multi-user support - Each user has separate data storage
+• Automatic warnings - Get alerts when parameters are unsafe
+• Data persistence - All readings saved locally in JSON format
+• Keyboard shortcuts - Quick navigation (Ctrl+H, Ctrl+1/2/3, F11)
+• Offline operation - No internet connection required
 
 ================================================================================
 GETTING STARTED
@@ -96,17 +69,18 @@ GETTING STARTED
 
 PREREQUISITES
 -------------
-  - Python 3.8 or higher
-  - pip (Python package manager)
+• Python 3.8 or higher
+• pip package manager
 
 INSTALLATION
 ------------
-1. Clone or download this repository
-   
-2. Install required dependencies:
+1. Install required dependencies:
+   pip install -r requirements.txt
+
+   Or manually install:
    pip install PyQt6 pyqtgraph numpy
 
-3. Run the application:
+2. Run the application:
    python main.py
 
 FIRST TIME SETUP
@@ -114,63 +88,7 @@ FIRST TIME SETUP
 1. Launch the application - You'll see a loading screen
 2. Create an account - Click "Sign Up" and enter your credentials
 3. Login - Use your username and password to access the dashboard
-4. Add your first reading - Navigate to the Input page and enter water 
-   parameters
-
-================================================================================
-HOW TO USE
-================================================================================
-
-ADDING WATER READINGS
-----------------------
-1. Click "+ Add New Reading" or navigate to the Input page
-2. Enter a profile name (e.g., "Main Tank", "Betta Tank")
-3. Input your water parameters:
-   - pH level (0-14)
-   - Temperature in Celsius (0-40°C)
-   - Ammonia in ppm (0-10)
-4. Click "Save Reading"
-
-VIEWING HISTORY
----------------
-1. Navigate to the History page
-2. Use the search bar to filter by profile name
-3. Click on any row to see detailed warnings and suggestions
-4. Use Edit to modify readings or Delete to remove them
-
-ANALYZING TRENDS (GRAPH PAGE)
------------------------------
-The Graph page helps you visualize your water quality data over time!
-
-How to use it:
-1. First, select a profile from the History page (click on any row)
-2. Navigate to the Graph page (Ctrl + 3)
-3. You'll see a bar graph showing all readings for that profile:
-   - Blue bars = pH levels
-   - Orange bars = Temperature
-   - Red bars = Ammonia levels
-4. Check the info box below the graph for:
-   - Profile name
-   - Latest reading values with color coding
-   - Timestamp of the last reading
-
-What it shows:
-- Each set of bars represents one reading
-- Multiple readings are displayed side-by-side
-- Easy to spot trends (going up, down, or staying stable)
-- Helps you see if your water quality is improving or getting worse
-
-Tip: Use this page to track how your water changes affect the parameters!
-
-UNDERSTANDING WARNINGS
-----------------------
-The application provides color-coded warnings:
-
-  - Green (Safe): Parameters are within optimal range
-  - Yellow (Caution): Parameters need attention
-  - Red (Danger): Immediate action required
-
-Each warning includes specific suggestions for correcting the issue.
+4. Add your first reading - Navigate to the Input page and enter water parameters
 
 ================================================================================
 KEYBOARD SHORTCUTS
@@ -223,176 +141,82 @@ Troubleshooting:
   - 0.2-0.5 ppm? Check filter, reduce feeding
 
 ================================================================================
-TECHNICAL DETAILS
+TECHNICAL INFORMATION
 ================================================================================
-
-LEARNING OUTCOMES
------------------
-Through the development of this project, the team successfully applied and 
-enhanced their knowledge in the following areas:
-  - Object-Oriented Programming (OOP) principles and design patterns
-  - Graphical User Interface (GUI) development using PyQt6 framework
-  - Data visualization techniques with PyQtGraph library
-  - File I/O operations and JSON data serialization
-  - User authentication and session management systems
-  - Software design patterns and architectural principles
-  - Version control systems and collaborative development workflows
-  - Software testing and quality assurance methodologies
 
 TECHNOLOGY STACK
 ----------------
-  - Python 3.x: Core programming language for application logic
-  - PyQt6: Cross-platform GUI framework for desktop applications
-  - PyQtGraph: Scientific graphics and data visualization library
-  - NumPy: Numerical computing library for data processing
-  - JSON: Lightweight data-interchange format for persistent storage
-
-PROJECT STRUCTURE
------------------
-traquarium/
-├── main.py                 # Application entry point
-├── main_app.py            # Main window and navigation
-├── auth.py                # User authentication
-├── data_model.py          # Data management
-├── pages/                 # Application pages
-│   ├── loading_page.py
-│   ├── login_page.py
-│   ├── register_page.py
-│   ├── welcome_page.py
-│   ├── home_page.py
-│   ├── input_page.py
-│   ├── history_page.py
-│   └── graph_page.py
-├── ui/                    # UI components
-│   ├── constants.py       # Colors and fonts
-│   ├── styles.py          # CSS stylesheets
-│   ├── components.py      # Reusable components
-│   ├── helpers.py         # Helper functions
-│   ├── utils.py           # Utility functions
-│   ├── dialogs.py         # Dialog windows
-│   └── base_page.py       # Base page class
-└── users/                 # User data storage
-    └── [username]/
-        └── readings.json
+• Python 3.x - Core programming language for application logic
+• PyQt6 - Cross-platform GUI framework for desktop applications
+• PyQtGraph - Scientific graphics and data visualization library
+• JSON - Lightweight data-interchange format for persistent storage
+• NumPy - Numerical computing library for data processing
 
 DATA STORAGE
 ------------
-  - User data is stored locally in JSON format
-  - Each user has a separate folder in users/[username]/
-  - Readings are stored in readings.json with timestamps
-  - No internet connection required - fully offline
+• All user data is stored locally on your computer
+• Each user has a separate folder in the "users" directory
+• Readings are saved in JSON format for easy portability
+• No internet connection required - fully offline application
+• Your data remains private and secure on your device
+
+SYSTEM REQUIREMENTS
+-------------------
+• Python 3.8 or higher
+• Windows, macOS, or Linux operating system
+• Minimum 100MB free disk space
+• Screen resolution: 1050x750 or higher recommended
 
 ================================================================================
 DEVELOPMENT TEAM
 ================================================================================
 
-PROJECT MEMBERS (2nd Year Computer Engineering Students):
+Developed by the Traquarium Team:
+• Arindaeng, Paul Daniel - Assistant Programmer
+• Dela Cruz, Gabriel - Designer
+• Eslabon, John Donald - Lead Programmer
+• Garcia, Rain - Co-Lead Programmer
 
-  Arindaeng, Paul Daniel
-    Position: Lead Developer & System Architect
-    Responsibilities: Application architecture, system integration, core 
-                     functionality, and navigation implementation
-    
-  Dela Cruz, Gabriel
-    Position: UI/UX Designer & Frontend Developer
-    Responsibilities: User interface design, page layouts, visual styling, 
-                     and component development
-    
-  Eslabon, John Donald
-    Position: Backend Developer & Data Management Specialist
-    Responsibilities: Data persistence, file handling, storage systems, 
-                     and data processing logic
-    
-  Garcia, Rain
-    Position: Quality Assurance & Documentation Specialist
-    Responsibilities: Software testing, debugging, user documentation, 
-                     and technical writing
-
-PROJECT CONTEXT:
-This application represents the culmination of our semester project, demonstrating 
-the practical application of software engineering principles and programming 
-concepts learned throughout our Computer Engineering curriculum.
+PROJECT PURPOSE
+---------------
+This application was developed to address the practical challenge of tracking 
+aquarium water quality over time. Traditional manual record-keeping is prone 
+to errors and lacks analytical capabilities. Traquarium provides an automated, 
+user-friendly solution with data visualization and intelligent warning systems.
 
 ================================================================================
-FEEDBACK & FUTURE ENHANCEMENTS
+TROUBLESHOOTING
 ================================================================================
 
-As an academic project, we welcome constructive feedback and suggestions for 
-improvement. This application serves as a foundation for understanding software 
-development principles, and we recognize opportunities for future enhancement.
+PROBLEM: Application won't start
+SOLUTION: Make sure all dependencies are installed
+  pip install PyQt6 pyqtgraph numpy
 
-POTENTIAL IMPROVEMENTS:
-  - Implementation of additional water parameters (nitrite, nitrate, GH, KH)
-  - Export functionality for data analysis in external applications
-  - Automated reminder system for scheduled water testing
-  - Cloud synchronization for multi-device access
-  - Mobile application development for on-the-go monitoring
+PROBLEM: "Python is not recognized" error
+SOLUTION: Install Python and add it to PATH
+  Download from: https://www.python.org/downloads/
 
-CONTRIBUTION GUIDELINES:
-For fellow students or developers interested in contributing:
-1. Review the existing codebase and documentation
-2. Identify areas for improvement or feature additions
-3. Follow established coding standards and conventions
-4. Submit detailed pull requests with clear descriptions
-5. Participate in code review processes
+PROBLEM: Window appears then closes immediately
+SOLUTION: Run from terminal to see error messages
+  python main.py
 
-We acknowledge that continuous improvement is essential in software development 
-and welcome collaborative efforts to enhance this application.
-
-================================================================================
-PROJECT INFORMATION
-================================================================================
-
-This is a student project created for our Computer Engineering course. We built 
-it to learn more about software development and to create something useful for 
-aquarium hobbyists.
-
-CONTACT US
-----------
-If you have questions about the project or want to give us feedback:
-  - GitHub: Check our repository for issues and updates
-  - Email: Feel free to reach out to any of our team members
-
-Note: This is an academic project, so response times may vary depending on our 
-class schedules!
-
-================================================================================
-ACKNOWLEDGMENTS
-================================================================================
-
-The development team would like to acknowledge the following contributions to 
-this project:
-
-ACADEMIC SUPPORT:
-  - Computer Engineering faculty for providing foundational knowledge and guidance
-  - Department resources and laboratory facilities for development and testing
-
-TECHNICAL RESOURCES:
-  - PyQt6 and PyQtGraph official documentation and community forums
-  - Python Software Foundation for comprehensive language documentation
-  - Open-source community for valuable libraries and frameworks
-  - Stack Overflow community for technical problem-solving assistance
-
-TESTING & FEEDBACK:
-  - Fellow students who participated in user acceptance testing
-  - Aquarium hobbyist community for domain knowledge and requirements validation
-
-This project would not have been possible without the collective support of 
-these individuals and communities.
+PROBLEM: Cannot edit values in History page
+SOLUTION: Click "Edit" button first, then double-click the cell
 
 ================================================================================
 VERSION HISTORY
 ================================================================================
 
-v1.0.0 (2025) - Our First Release!
-  - Initial release for our course project
+v1.0.0 (2025)
+  - Initial release
   - Core water parameter tracking (pH, temperature, ammonia)
-  - Multi-user support (so everyone in the family can track their tanks)
-  - Data visualization with graphs (the fun part!)
-  - Warning system (to help keep fish safe)
+  - Multi-user support
+  - Data visualization with graphs
+  - Warning system
   - Modern UI with dark theme
 
-FUTURE DEVELOPMENT ROADMAP:
+FUTURE ENHANCEMENTS
+-------------------
   - CSV/Excel export functionality for external data analysis
   - Extended parameter monitoring (nitrite, nitrate, GH, KH)
   - Automated notification system for scheduled testing
@@ -401,8 +225,8 @@ FUTURE DEVELOPMENT ROADMAP:
 
 ================================================================================
 
-Developed by 2nd Year Computer Engineering Students
-Academic Year 2024-2025
+Developed by the Traquarium Team
+© 2025 Traquarium Team
 
 This application demonstrates the practical application of software engineering 
 principles and serves as a comprehensive solution for aquarium water quality 
