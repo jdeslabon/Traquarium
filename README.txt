@@ -57,11 +57,16 @@ HOW TO USE THE PROGRAM
 KEY FEATURES
 ================================================================================
 
-• Multi-user support - Each user has separate data storage
-• Automatic warnings - Get alerts when parameters are unsafe
-• Data persistence - All readings saved locally in JSON format
-• Keyboard shortcuts - Quick navigation (Ctrl+H, Ctrl+1/2/3, F11)
-• Offline operation - No internet connection required
+• Multi-Profile Support - Track multiple aquariums separately with named profiles
+• Automatic Safety Warnings - Color-coded alerts when parameters are unsafe
+• Interactive Data Visualization - Bar graphs show trends across all readings
+• Complete History Management - Search, edit, and delete past readings
+• Real-time Input Validation - Prevents invalid data entry with strict checks
+• Built-in Parameter Guide - Reference information for ideal water ranges
+• Multi-user Support - Each user has separate, secure data storage
+• Data Persistence - All readings saved locally in JSON format
+• Keyboard Shortcuts - Quick navigation (Ctrl+H, Ctrl+1/2/3, F11)
+• Offline Operation - No internet connection required
 
 ================================================================================
 GETTING STARTED
