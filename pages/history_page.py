@@ -39,6 +39,8 @@ class NumericDelegate(QStyledItemDelegate):
     
     def validate_input(self, editor, column):
         """Real-time validation as user types"""
+        if editor is None:
+            return
         text = editor.text()
         if not text:
             return
@@ -65,6 +67,8 @@ class NumericDelegate(QStyledItemDelegate):
     
     def setModelData(self, editor, model, index):
         """Validate data before setting it in the model"""
+        if editor is None:
+            return
         text = editor.text()
         column = index.column()
         
