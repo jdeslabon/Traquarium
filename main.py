@@ -5,7 +5,7 @@ from main_app import MainWindow
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    app.setFont(QFont("Times New Roman", 12))
+    app.setFont(QFont("Segoe UI", 12))
     app.setStyleSheet("* { outline: none; }")
     
     window = MainWindow()
