@@ -1,7 +1,6 @@
-# pages/login_page.py
-"""Login and registration page"""
+"""Login page"""
 
-from PyQt6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel
+from PyQt6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout
 from PyQt6.QtCore import Qt, QTimer
 from PyQt6.QtGui import QFont
 from auth import UserManager
@@ -39,10 +38,8 @@ class LoginPage(QWidget):
         self.login_btn = ButtonFactory.create_primary_button("LOGIN", QFont("Segoe UI", 13, QFont.Weight.Bold), (380, 50))
         self.login_btn.clicked.connect(self.login_user)
         layout.addWidget(self.login_btn, alignment=Qt.AlignmentFlag.AlignCenter)
-        
         layout.addSpacing(15)
         
-        # Sign up link
         signup_container = QHBoxLayout()
         signup_text = LabelFactory.create_subtitle("Don't have an account?", QFont("Segoe UI", 11))
         self.register_btn = ButtonFactory.create_secondary_button("Sign Up", QFont("Segoe UI", 11, QFont.Weight.DemiBold), (None, 30))
@@ -59,7 +56,6 @@ class LoginPage(QWidget):
         self.feedback_label = LabelFactory.create_feedback(QFont("Segoe UI", 11))
         layout.addWidget(self.feedback_label)
 
-        # Allow Enter key to trigger login
         self.username_input.returnPressed.connect(self.login_user)
         self.password_input.returnPressed.connect(self.login_user)
 
@@ -68,36 +64,24 @@ class LoginPage(QWidget):
         super().paintEvent(event)
 
     def go_to_register(self):
-        """Navigate to registration page"""
-        print(f"Sign Up clicked! Current widget count: {self.stacked_widget.count()}")
-        
-        # Find or create register page
         register_page_index = None
         
-        # Check if register page already exists
         for i in range(self.stacked_widget.count()):
             widget = self.stacked_widget.widget(i)
             if widget.__class__.__name__ == 'RegisterPage':
                 register_page_index = i
-                print(f"Found existing RegisterPage at index {i}")
                 break
         
-        # If not found, create it
         if register_page_index is None:
             from pages.register_page import RegisterPage
             register_page = RegisterPage(self.stacked_widget)
             self.stacked_widget.addWidget(register_page)
             register_page_index = self.stacked_widget.count() - 1
-            print(f"Created new RegisterPage at index {register_page_index}")
         
-        # Clear login fields before switching
         self.username_input.clear()
         self.password_input.clear()
         self.feedback_label.clear()
-        
-        # Navigate to register page
         self.stacked_widget.setCurrentIndex(register_page_index)
-        print(f"Switched to index {register_page_index}")
 
     def login_user(self):
         username = self.username_input.text().strip()

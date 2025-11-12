@@ -1,4 +1,3 @@
-# pages/register_page.py
 """Registration page"""
 
 from PyQt6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout
@@ -41,10 +40,8 @@ class RegisterPage(QWidget):
         self.register_btn = ButtonFactory.create_primary_button("SIGN UP", QFont("Segoe UI", 13, QFont.Weight.Bold), (380, 50))
         self.register_btn.clicked.connect(self.register_user)
         layout.addWidget(self.register_btn, alignment=Qt.AlignmentFlag.AlignCenter)
-        
         layout.addSpacing(15)
         
-        # Back to login link
         login_container = QHBoxLayout()
         login_text = LabelFactory.create_subtitle("Already have an account?", QFont("Segoe UI", 11))
         self.login_link = ButtonFactory.create_secondary_button("Login", QFont("Segoe UI", 11, QFont.Weight.DemiBold), (None, 30))
@@ -61,7 +58,6 @@ class RegisterPage(QWidget):
         self.feedback_label = LabelFactory.create_feedback(QFont("Segoe UI", 11))
         layout.addWidget(self.feedback_label)
 
-        # Allow Enter key to trigger registration
         self.username_input.returnPressed.connect(self.register_user)
         self.password_input.returnPressed.connect(self.register_user)
         self.confirm_password_input.returnPressed.connect(self.register_user)
@@ -71,7 +67,6 @@ class RegisterPage(QWidget):
         super().paintEvent(event)
     
     def go_to_login(self):
-        """Clear fields and go back to login page"""
         self.username_input.clear()
         self.password_input.clear()
         self.confirm_password_input.clear()
@@ -83,7 +78,6 @@ class RegisterPage(QWidget):
         password = self.password_input.text().strip()
         confirm_password = self.confirm_password_input.text().strip()
         
-        # Validate all fields filled
         for value, field_name in [(username, "Username"), (password, "Password"), (confirm_password, "Confirm Password")]:
             valid, msg = ValidationHelper.validate_not_empty(value, field_name)
             if not valid:
@@ -91,7 +85,6 @@ class RegisterPage(QWidget):
                 self.feedback_label.setText("Please fill in all fields.")
                 return
         
-        # Validate no spaces
         for value, field_name in [(username, "Username"), (password, "Password")]:
             valid, msg = ValidationHelper.validate_no_spaces(value, field_name)
             if not valid:
@@ -99,7 +92,6 @@ class RegisterPage(QWidget):
                 self.feedback_label.setText(msg)
                 return
         
-        # Check password match
         if password != confirm_password:
             self.feedback_label.setStyleSheet("color: #EF5350;")
             self.feedback_label.setText("Passwords do not match.")
@@ -111,9 +103,7 @@ class RegisterPage(QWidget):
         self.feedback_label.setText(msg)
         
         if success:
-            # Clear fields
             self.username_input.clear()
             self.password_input.clear()
             self.confirm_password_input.clear()
-            # Go back to login page after 1.5 seconds
             QTimer.singleShot(1500, lambda: self.stacked_widget.setCurrentIndex(1))

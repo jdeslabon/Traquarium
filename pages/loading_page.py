@@ -1,9 +1,8 @@
-# pages/loading_page.py
-"""Loading screen page"""
+"""Loading screen"""
 
 from PyQt6.QtWidgets import QWidget, QVBoxLayout, QLabel, QSizePolicy, QProgressBar
-from PyQt6.QtCore import Qt, QTimer, QPointF
-from PyQt6.QtGui import QPixmap, QPainter, QLinearGradient, QColor, QPainterPath
+from PyQt6.QtCore import Qt, QTimer
+from PyQt6.QtGui import QPixmap, QPainter, QPainterPath
 from ui.constants import MAIN_FONT
 from ui.utils import find_logo_path
 
@@ -31,7 +30,6 @@ class LoadingPage(QWidget):
         layout.addWidget(self.logo_label, alignment=Qt.AlignmentFlag.AlignCenter)
         layout.addSpacing(40)
         
-        # Loading text
         loading_text = QLabel("Loading...")
         loading_text.setFont(MAIN_FONT)
         loading_text.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -39,7 +37,6 @@ class LoadingPage(QWidget):
         layout.addWidget(loading_text)
         layout.addSpacing(15)
         
-        # Progress bar
         self.progress_bar = QProgressBar()
         self.progress_bar.setFixedSize(400, 8)
         self.progress_bar.setRange(0, 100)
@@ -49,16 +46,14 @@ class LoadingPage(QWidget):
         self.progress_bar.setStyleSheet(PROGRESS_BAR_STYLE)
         layout.addWidget(self.progress_bar, alignment=Qt.AlignmentFlag.AlignCenter)
         
-        # Progress timer
         self._progress = 0
         self._timer = QTimer(self)
         self._timer.timeout.connect(self._update_progress)
-        self._timer.start(50)  # Update every 50ms
+        self._timer.start(50)
         
         QTimer.singleShot(self.delay_ms, self._go_to_login)
 
     def _update_progress(self):
-        """Update progress bar"""
         self._progress += 2
         if self._progress > 100:
             self._progress = 100
@@ -75,33 +70,25 @@ class LoadingPage(QWidget):
 
 
 class CircularLogoLabel(QLabel):
-    """Custom label that displays an image in a circular mask"""
-    
     def __init__(self):
         super().__init__()
         self._pixmap = None
         
     def setPixmap(self, pixmap):
-        """Set the pixmap and store it"""
         self._pixmap = pixmap
         self.update()
     
     def paintEvent(self, event):
-        """Paint the pixmap in a circular shape"""
         if self._pixmap is None or self._pixmap.isNull():
             return
             
         painter = QPainter(self)
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
         
-        # Create circular path
         path = QPainterPath()
         path.addEllipse(0, 0, self.width(), self.height())
-        
-        # Clip to circle
         painter.setClipPath(path)
         
-        # Scale and draw pixmap
         scaled_pixmap = self._pixmap.scaled(
             self.width(), 
             self.height(), 
@@ -109,7 +96,6 @@ class CircularLogoLabel(QLabel):
             Qt.TransformationMode.SmoothTransformation
         )
         
-        # Center the pixmap
         x = (self.width() - scaled_pixmap.width()) // 2
         y = (self.height() - scaled_pixmap.height()) // 2
         

@@ -1,4 +1,3 @@
-# auth/user_manager.py
 """User authentication and management"""
 
 import os
@@ -6,7 +5,6 @@ import json
 
 
 class UserManager:
-    """Handles user registration, validation, and folder creation."""
     def __init__(self, user_file="users.json"):
         self.user_file = user_file
         if not os.path.exists(self.user_file):
@@ -27,8 +25,6 @@ class UserManager:
             return False, "Username already exists."
         users[username] = {"password": password}
         self.save_users(users)
-
-        # Create user folder
         os.makedirs(os.path.join("users", username), exist_ok=True)
         return True, "✅ Registration successful!"
 

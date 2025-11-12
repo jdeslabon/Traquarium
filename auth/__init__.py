@@ -1,4 +1,3 @@
-# auth/__init__.py
-"""Authentication package initialization"""
+"""Authentication package"""
 
 from .user_manager import UserManager

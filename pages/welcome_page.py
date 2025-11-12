@@ -1,9 +1,8 @@
-# pages/welcome_page.py
-"""Welcome screen after login"""
+"""Welcome screen"""
 
 from PyQt6.QtWidgets import QWidget, QVBoxLayout, QLabel, QPushButton, QMessageBox
-from PyQt6.QtCore import Qt, QPointF
-from PyQt6.QtGui import QPixmap, QPainter, QLinearGradient, QColor
+from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QPixmap
 from ui.constants import TITLE_FONT, SUBTITLE_FONT, MAIN_FONT
 from ui.utils import find_logo_path
 

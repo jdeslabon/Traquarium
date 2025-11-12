@@ -1,5 +1,4 @@
-# ui/__init__.py
-"""UI package initialization"""
+"""UI package"""
 
 from .constants import *
 from .utils import background

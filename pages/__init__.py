@@ -1,5 +1,4 @@
-# pages/__init__.py
-"""Pages package initialization"""
+"""Pages package"""
 
 from .loading_page import LoadingPage
 from .login_page import LoginPage
