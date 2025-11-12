@@ -9,7 +9,7 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QFont, QColor, QDoubleValidator
 from ui.base_page import AquaPage
 from ui.components import ButtonFactory, InputFieldFactory, StrictDoubleValidator
-from ui.styles import TABLE_STYLE, TABLE_ALTERNATE_STYLE, DROPDOWN_FRAME_STYLE
+from ui.styles import TABLE_STYLE, TABLE_ALTERNATE_STYLE, TABLE_NO_SELECTION_STYLE, DROPDOWN_FRAME_STYLE
 from ui.helpers import DataHelper, WarningHelper, DialogHelper
 
 
@@ -154,6 +154,11 @@ class HistoryPage(AquaPage):
         self.table.cellClicked.connect(self.on_table_cell_clicked)
         self.table.verticalHeader().sectionClicked.connect(self.on_row_header_clicked)
         
+        # Set minimum row height to prevent header cutoff
+        self.table.verticalHeader().setDefaultSectionSize(35)
+        self.table.horizontalHeader().setMinimumHeight(40)
+        self.table.horizontalHeader().setDefaultAlignment(Qt.AlignmentFlag.AlignCenter)
+        
         # Set numeric delegate for pH, Temperature, and Ammonia columns
         self.numeric_delegate = NumericDelegate()
         self.table.setItemDelegateForColumn(2, self.numeric_delegate)  # pH
@@ -198,6 +203,15 @@ class HistoryPage(AquaPage):
         self.saved_table.setAlternatingRowColors(True)
         self.saved_table.setMinimumWidth(480)
         self.saved_table.setFont(QFont("Segoe UI", 9))
+        
+        # Make table non-selectable (display only)
+        self.saved_table.setSelectionMode(QAbstractItemView.SelectionMode.NoSelection)
+        self.saved_table.setFocusPolicy(Qt.FocusPolicy.NoFocus)
+        self.saved_table.viewport().setCursor(Qt.CursorShape.ArrowCursor)
+        
+        # Fix header height
+        self.saved_table.verticalHeader().setDefaultSectionSize(30)
+        self.saved_table.horizontalHeader().setMinimumHeight(35)
 
         self.warning_table = QTableWidget()
         self.warning_table.setColumnCount(2)
@@ -207,9 +221,19 @@ class HistoryPage(AquaPage):
         self.warning_table.setWordWrap(True)
         self.warning_table.setAlternatingRowColors(True)
         self.warning_table.setFont(QFont("Segoe UI", 10))
+        
+        # Make table non-selectable (display only)
+        self.warning_table.setSelectionMode(QAbstractItemView.SelectionMode.NoSelection)
+        self.warning_table.setFocusPolicy(Qt.FocusPolicy.NoFocus)
+        self.warning_table.viewport().setCursor(Qt.CursorShape.ArrowCursor)
+        
+        # Fix header height
+        self.warning_table.verticalHeader().setDefaultSectionSize(40)
+        self.warning_table.horizontalHeader().setMinimumHeight(35)
 
-        for t in (self.saved_table, self.warning_table):
-            t.setStyleSheet(TABLE_ALTERNATE_STYLE)
+        # Apply no-selection style to dropdown tables
+        self.saved_table.setStyleSheet(TABLE_NO_SELECTION_STYLE)
+        self.warning_table.setStyleSheet(TABLE_NO_SELECTION_STYLE)
 
         self.dropdown_layout.addWidget(self.saved_table, 1)
         self.dropdown_layout.addWidget(self.warning_table, 2)

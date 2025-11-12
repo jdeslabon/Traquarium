@@ -342,6 +342,40 @@ TABLE_ALTERNATE_STYLE = """
     }
 """
 
+TABLE_NO_SELECTION_STYLE = """
+    QTableWidget {
+        background: rgba(255, 255, 255, 0.05);
+        alternate-background-color: rgba(255, 255, 255, 0.08);
+        color: #FFFFFF;
+        gridline-color: #1E90FF;
+        selection-background-color: transparent;
+        selection-color: #FFFFFF;
+        font-size: 10pt;
+    }
+    QHeaderView::section {
+        background-color: #CAE9FF;
+        color: #1B4965;
+        font-weight: bold;
+        font-size: 10pt;
+        padding: 4px;
+        border: none;
+    }
+    QTableWidget::item {
+        padding: 3px;
+    }
+    QTableWidget::item:selected {
+        background: transparent;
+        color: #FFFFFF;
+    }
+    QTableWidget::item:focus {
+        background: transparent;
+        outline: none;
+    }
+    QTableWidget::item:hover {
+        background: transparent;
+    }
+"""
+
 # ============================================================================
 # SCROLLBARS
 # ============================================================================
